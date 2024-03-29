@@ -1,1 +1,0 @@
-return {"SORRY4DELAY", "WEEK4", "RRRANKEDDD"}
