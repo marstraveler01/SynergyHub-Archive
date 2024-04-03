@@ -53,3 +53,5 @@ local Old; Old = hookfunction(getrenv().debug.info, newcclosure(function(...)
     
     return Old(...)
 end))
+
+setthreadidentity(7)
