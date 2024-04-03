@@ -1,6 +1,6 @@
 -- https://v3rm.net/threads/trading-adonis-bypass-i-made-for-krampus-key.4730/post-33749
 local Hooked = {}
-
+setthreadidentity(2)
 local function handleAdonis()
     for _, obj in ipairs(getgc(true)) do
         if type(obj) == "table" then
