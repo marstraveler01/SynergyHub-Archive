@@ -1,9 +1,1079 @@
---[[
+--discord.gg/boronide, code generated using luamin.js™
 
-AuraIS (Aura Interface Suite)
-by Darkrai | Y
 
-Note: This UI library is not intended for modifying the core functionality
-]]
 
-local a="Alpha 0.1"local b=5;local c="AuraIS"local d=c.."/Configurations"local e={Flags={},Theme={Dark={TextColor=Color3.fromRGB(240,240,240),MainColor=Color3.fromRGB(16,16,16),SecondaryColor=Color3.fromRGB(22,22,22),NotificationActionsBackground=Color3.fromRGB(230,230,230),ImageColor=Color3.fromRGB(255,255,255),TabBackground=Color3.fromRGB(80,80,80),TabStroke=Color3.fromRGB(85,85,85),TabBackgroundSelected=Color3.fromRGB(210,210,210),TabTextColor=Color3.fromRGB(240,240,240),SelectedTabTextColor=Color3.fromRGB(50,50,50),SliderColor=Color3.fromRGB(170,0,255),ToggleEnabled=Color3.fromRGB(170,0,255),ToggleDisabled=Color3.fromRGB(139,139,139),CardButton=Color3.fromRGB(230,230,230),TweenInfo=TweenInfo.new(0.5,Enum.EasingStyle.Quint)}}}local f=tostring(math.random(1,100))..tostring(math.random(1,50))..tostring(math.random(1,100))function e:DragFunc(g,h)h=h or g;local i=false;local j,k,l;g.InputBegan:Connect(function(m)if m.UserInputType==Enum.UserInputType.MouseButton1 or m.UserInputType==Enum.UserInputType.Touch then i=true;k=m.Position;l=h.Position;m.Changed:Connect(function()if m.UserInputState==Enum.UserInputState.End then i=false end end)end end)g.InputChanged:Connect(function(m)if m.UserInputType==Enum.UserInputType.MouseMovement or m.UserInputType==Enum.UserInputType.Touch then j=m end end)game:GetService("UserInputService").InputChanged:Connect(function(m)if m==j and i then local n=m.Position-k;h.Position=UDim2.new(l.X.Scale,l.X.Offset+n.X,l.Y.Scale,l.Y.Offset+n.Y)end end)end;function e:ToggleUI()if game.CoreGui[f].Enabled then game.CoreGui[f].Enabled=false else game.CoreGui[f].Enabled=true end end;local o=game:GetService("TextService")local p=game:GetService("UserInputService")local q=game:GetService("TweenService")local r=game:GetService("HttpService")local s=game:GetService("RunService")local t=game:GetService("Players")local u=game:GetService("CoreGui")local v=t.LocalPlayer:GetMouse()local w=game:GetObjects("rbxassetid://14742706510")[1]w.Enabled=false;w.DisplayOrder=100;if get_hidden_gui or gethui then w.Parent=u else w.Parent=u end;function e:Notify(x,y)spawn(function()local z=y.Duration or b;local A=w.Notifications[x]:Clone()A.Parent=w.Notifications;A.Name=y.Title or"Unknown Title"A.Parent=w.Notifications;A.Visible=true;A.Actions.ButtonTemplate.Visible=false;if y.Actions then for B,C in pairs(y.Actions)do local D=A.Actions.ButtonTemplate:Clone()D.Name=C.Name;D.Visible=true;D.Parent=A.Actions;D.Text=C.Name;D.Size=UDim2.new(0,D.TextBounds.X+27,1,0)D.MouseButton1Click:Connect(function()local E,F=pcall(C.Callback)end)end end;A.Title.Text=y.Title or"Unknown"A.Description.Text=y.Content or"Unknown"if y.Image then A.Icon.Image=y.Image end;while z>=0 do A.Duration.Text=z;wait(1)z=z-1 end;A:Destroy()end)end;function e:CreateLibrary(G,H)local I={Name=typeof(G)=="table"and G.Name or(typeof(G)=="string"and G or"Undefined"),Icon=typeof(G)=="table"and G.Icon or H or"rbxassetid://11432865001"}w.Enabled=true;local J=w.Main.SideBar;local K=J.Buttons;local L=w.Main.TabContainer;J.NameText.Text=I.Name;J.Icon.Image=I.Icon;e:DragFunc(J,w.Main)K.Parent.Minimize.MouseButton1Click:Connect(function()if K.Parent.Minimize.Rotation==0 then q:Create(K.Parent.Minimize,e.Theme.Dark.TweenInfo,{Rotation=180}):Play()q:Create(K.Parent,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0,147,1,0)}):Play()q:Create(L,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0,349,0,326)}):Play()q:Create(L,e.Theme.Dark.TweenInfo,{Position=UDim2.new(0.305,0,0.021,0)}):Play()else q:Create(K.Parent.Minimize,e.Theme.Dark.TweenInfo,{Rotation=0}):Play()q:Create(K.Parent,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0,55,1,0)}):Play()q:Create(L,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0,439,0,326)}):Play()q:Create(L,e.Theme.Dark.TweenInfo,{Position=UDim2.new(0.13,0,0.021,0)}):Play()end end)local M={}function M:Notify(y,N,O,P)spawn(function()w.Main.Notifications.Visible=true;local z=typeof(y)=="table"and y.Duration or O or b;local A=w.Main.Notifications.Template;A.Parent=w.Notifications;A.Duration.Text=z;A.Parent=w.Main.Notifications;A.Visible=true;for Q,R in pairs(A.Actions:GetChildren())do if R.Name~="ButtonTemplate"and not R:IsA("UIListLayout")then R:Destroy()end end;A.Actions.ButtonTemplate.Visible=false;if typeof(y)=="table"and y.Actions or P then for B,C in pairs(typeof(y)=="table"and y.Actions or P)do local D=A.Actions.ButtonTemplate:Clone()D.Name=C.Name;D.Visible=true;D.Parent=A.Actions;D.Text=C.Name;D.Size=UDim2.new(0,D.TextBounds.X+27,1,0)D.MouseButton1Click:Connect(function()local E,F=pcall(C.Callback)end)end end;A.Title.Text=typeof(y)=="table"and y.Title or y or"Unknown"A.Description.Text=typeof(y)=="table"and y.Content or N or"Unknown"while z>=0 do A.Duration.Text=z;wait(1)z=z-1 end;w.Main.Notifications.Visible=false;for Q,R in pairs(A.Actions:GetChildren())do if R.Name~="ButtonTemplate"and not R:IsA("UIListLayout")then R:Destroy()end end end)end;function M:CreateTab(S,H)if not S then return end;local T=K.Template:Clone()T.ImageLabel.Image=typeof(S)=="table"and S.Icon or H or"rbxassetid://11432859220"T.TextLabel.Text=typeof(S)=="table"and S.Title or S or"Unknown"T.Visible=true;T.Parent=K;local U=L.Template:Clone()U.Parent=L;U.Name=typeof(S)=="table"and S.Title or S or"Unknown"U.Visible=true;U.LayoutOrder=#L:GetChildren()for B,V in ipairs(U:GetChildren())do if V.ClassName=="Frame"then V:Destroy()end end;T.MouseButton1Click:Connect(function()for B,W in ipairs(L:GetChildren())do if W.Name~="Template"and W.ClassName=="Frame"and W~=T then end end;if L.UIPageLayout.CurrentPage~=U then L.UIPageLayout:JumpTo(U)end end)local X={}function X:CreateSection(Y,Z)local _={}local a0;if Z=="Normal"then a0=L.Template.SectionTitle:Clone()a0.Name=Y;a0.Title.Text=Y;a0.Visible=true;a0.Parent=U elseif Z=="Foldable"then a0=L.Template.FoldableSectionTitle:Clone()a0.Name=Y;a0.Title.Text=Y;a0.Visible=true;a0.Parent=U end;a0.Title.TextTransparency=1;q:Create(a0.Title,TweenInfo.new(0.7,Enum.EasingStyle.Quint),{TextTransparency=0}):Play()function _:SetName(a1)a0.Title.Text=a1 end;local function a2()local a3=a0.UIListLayout.AbsoluteContentSize;a0.Size=UDim2.new(1,0,0,a3.Y)end;if Z=="Foldable"then local a4=true;a0.Title.TextButton.MouseButton1Click:Connect(function()if a4 then a4=false;for B,R in ipairs(a0:GetChildren())do if R.Name~="UIListLayout"and R.Name~="UIPadding"and not R:IsA("TextLabel")then R.Visible=false end end else a4=true;for B,R in ipairs(a0:GetChildren())do if R.Name~="UIListLayout"and R.Name~="UIPadding"and not R:IsA("TextLabel")then R.Visible=true end end end;a2()end)end;function _:CreateButton(a5)local a6={Func=a5.Callback}local a7=L.Template.Button:Clone()a7.Name=a5.Name or"Undefined"a7.Title.Text=a5.Name or"Undefined"a7.Visible=true;a7.Parent=a0;a2()a7.Interact.MouseButton1Click:Connect(function()local a8,a9=pcall(a6.Func)if not a8 then local aa=a7.Size;q:Create(a7,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0.992,-10,0,35)}):Play()q:Create(a7,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(103,0,0)}):Play()a7.Title.Text="Error occurred"print("[AuraIS]: An error occurred: "..tostring(a9))wait(0.5)a7.Title.Text=a5.Name;q:Create(a7,e.Theme.Dark.TweenInfo,{Size=aa}):Play()q:Create(a7,e.Theme.Dark.TweenInfo,{BackgroundColor3=e.Theme.Dark.SecondaryColor}):Play()else local aa=a7.Size;q:Create(a7,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0.992,-10,0,35)}):Play()wait(0.2)q:Create(a7,e.Theme.Dark.TweenInfo,{Size=aa}):Play()end end)function a6:SetCallback(ab)a6.Func=ab end;function a6:SetName(ac)a7.Title.Text=ac;a7.Name=ac end;return a6 end;function _:CreateToggle(ad,ae)if ad=="Radio"then local af={}local ag=L.Template.Toggle_Radio:Clone()local ah=ag.Interact;local ai=ag.Switch;local aj=ai.Indicator;aj.BackgroundTransparency=1;aj.BackgroundColor3=Color3.fromRGB(170,0,255)ag.Name=ae.Name;ag.Title.Text=ae.Name;ag.Visible=true;ag.Parent=a0;a2()ag.Interact.MouseButton1Click:Connect(function()if ae.CurrentValue then ae.CurrentValue=false;q:Create(aj,e.Theme.Dark.TweenInfo,{BackgroundTransparency=1}):Play()else ae.CurrentValue=true;q:Create(aj,e.Theme.Dark.TweenInfo,{BackgroundTransparency=0}):Play()end;local a8,a9=pcall(function()ae.Callback(ae.CurrentValue)end)if not a8 then q:Create(ag,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(103,0,0)}):Play()ag.Title.Text="Error occurred"print("[AuraIS]: An error occurred: "..tostring(a9))wait(0.5)ag.Title.Text=ae.Name;q:Create(ag,e.Theme.Dark.TweenInfo,{BackgroundColor3=e.Theme.Dark.SecondaryColor}):Play()end end)return ae elseif ad=="Normal"then local af={}local ag=L.Template.Toggle:Clone()local ah=ag.Interact;local ai=ag.Switch;local aj=ai.Indicator;ag.Name=ae.Name;ag.Title.Text=ae.Name;ag.Visible=true;ag.Parent=a0;a2()ag.Interact.MouseButton1Click:Connect(function()if ae.CurrentValue then ae.CurrentValue=false;q:Create(aj,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(139,139,139)}):Play()q:Create(aj,e.Theme.Dark.TweenInfo,{Position=UDim2.new(0.07,0,0.5,0)}):Play()else ae.CurrentValue=true;q:Create(aj,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(170,0,255)}):Play()q:Create(aj,e.Theme.Dark.TweenInfo,{Position=UDim2.new(0.537,0,0.5,0)}):Play()end;local a8,a9=pcall(function()ae.Callback(ae.CurrentValue)end)if not a8 then q:Create(ag,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(103,0,0)}):Play()ag.Title.Text="Error occurred"print("[AuraIS]: An error occurred: "..tostring(a9))wait(0.5)ag.Title.Text=ae.Name;q:Create(ag,e.Theme.Dark.TweenInfo,{BackgroundColor3=e.Theme.Dark.SecondaryColor}):Play()end end)ag.MouseEnter:Connect(function()q:Create(ag,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(40,40,40)}):Play()q:Create(ag,e.Theme.Dark.TweenInfo,{Size=UDim2.new(1.011,-10,0,40)}):Play()end)ag.MouseLeave:Connect(function()q:Create(ag,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(22,22,22)}):Play()q:Create(ag,e.Theme.Dark.TweenInfo,{Size=UDim2.new(1,-10,0,40)}):Play()end)return ae end end;function _:CreateColorPicker(ak)local al=L.Template.ColorPicker:Clone()local am=al.Switch;local an=al["RGB"]local ao=al.Color;local ap=ao.SliderPoint;local aq=al.Darkness;local ar=aq.SliderPoint;al.Name=ak.Name;al.Title.Text=ak.Name;al.Visible=true;al.Parent=a0;local as={1,1,1}local at=false;local au=false;local av;local aw=ak.Callback;a2()local function ax(ay)return math.acos(math.cos(ay*math.pi))/math.pi end;counter=0;local function az()return game.Players.LocalPlayer:GetMouse()end;local function aA()if at then local aB=math.clamp(v.X-ao.AbsolutePosition.X,0,ao.AbsoluteSize.X)local aC=math.clamp(v.Y-ao.AbsolutePosition.Y,0,ao.AbsoluteSize.Y)local aD=math.floor(ao.AbsoluteSize.X)local aE=math.floor(ao.AbsoluteSize.Y)if aB<0 then aB=0 end;if aB>aD then aB=aD end;if aC<0 then aC=0 end;if aC>aE then aC=aE end;aB=aB/aD;aC=aC/aE;local aF=ap.AbsoluteSize.X/2;local aG=ap.AbsoluteSize.Y/2;ap.Position=UDim2.new(math.min(aB,1-aF/aD),0,math.min(aC,1-aG/aE),0)as={1-aB,1-aC,as[3]}local aH=Color3.fromHSV(as[1],as[2],as[3])aw(aH)end;if au then local aI=az()local aC=aI.Y-aq.AbsolutePosition.Y;local aE=math.floor(ao.AbsoluteSize.Y)-1;if aC<0 then aC=0 end;if aC>aE then aC=aE end;aC=aC/aE;local aG=ar.AbsoluteSize.Y/2;ar.Position=UDim2.new(0.5,0,math.min(aC,1-aG/aE),0)ar.ImageColor3=Color3.fromHSV(0,0,aC)as={as[1],as[2],1-aC}local aH=Color3.fromHSV(as[1],as[2],as[3])aw(aH)end end;local function aJ(aK)local aF=ap.AbsoluteSize.X/2;local aG=ap.AbsoluteSize.Y/2;as={aK[1],aK[2],aK[3]}ap.Position=UDim2.new(as[1],-aF,as[2]-1,-aG)ar.Position=UDim2.new(0.5,0,as[3]-1,-aG)local aH=Color3.fromHSV(as[1],as[2],as[3])end;local function aL(aK)local aD=math.floor(ao.AbsoluteSize.X)local aE=math.floor(ao.AbsoluteSize.Y)local aF=ap.AbsoluteSize.X/2;local aG=ap.AbsoluteSize.Y/2;as={aK[1],aK[2],as[3]}ap.Position=UDim2.new(math.min(as[1],1-aF/aE),0,math.min(as[2]-1,1-aG/aE))local aH=Color3.fromHSV(as[1],as[2],as[3])aw(aH)end;local function aM()if rainbow then q:Create(am.Indicator,e.Theme.Dark.TweenInfo,{BackgroundTransparency=1}):Play()rainbow=false;av:Disconnect()else q:Create(am.Indicator,e.Theme.Dark.TweenInfo,{BackgroundTransparency=0}):Play()rainbow=true;av=game:GetService("RunService").RenderStepped:Connect(function()aL({ax(counter),1,1})counter=counter+0.01 end)end end;am:FindFirstChildWhichIsA("TextButton").MouseButton1Click:Connect(aM)game.Players.LocalPlayer:GetMouse().Move:connect(aA)ao.MouseButton1Down:connect(function()at=true end)aq.MouseButton1Down:connect(function()au=true end)p.InputEnded:Connect(function(m)if m.UserInputType==Enum.UserInputType.MouseButton1 or m.UserInputType==Enum.UserInputType.Touch then if au then au=false end;if at then at=false end end end)return ak end;function _:CreateSlider(aN)local aO=false;local aP=L.Template.Slider:Clone()aP.Name=aN.Name;aP.Title.Text=aN.Name;aP.Title.TextScaled=false;aP.Visible=true;aP.Parent=a0;a2()aP.Main.Progress.Size=UDim2.new(0,aP.Main.AbsoluteSize.X*(aN.CurrentValue+aN.Value[1])/(aN.Value[2]-aN.Value[1])>5 and aP.Main.AbsoluteSize.X*aN.CurrentValue/(aN.Value[2]-aN.Value[1])or 5,1,0)if not aN.Suffix then aP.Main.Information.Text=tostring(aN.CurrentValue)else aP.Main.Information.Text=tostring(aN.CurrentValue).." "..aN.Suffix end;aP.Main.Interact.InputBegan:Connect(function(aQ)if aQ.UserInputType==Enum.UserInputType.MouseButton1 or aQ.UserInputType==Enum.UserInputType.Touch then aO=true end end)aP.Main.Interact.InputEnded:Connect(function(aQ)if aQ.UserInputType==Enum.UserInputType.MouseButton1 or aQ.UserInputType==Enum.UserInputType.Touch then aO=false end end)aP.Main.Interact.MouseButton1Down:Connect(function(ay)local aR=aP.Main.Progress.AbsolutePosition.X+aP.Main.Progress.AbsoluteSize.X;local aS=aR;local aT=ay;local aU;aU=s.Stepped:Connect(function()if aO then aT=p:GetMouseLocation().X;aR=aT;if aT<aP.Main.AbsolutePosition.X then aT=aP.Main.AbsolutePosition.X elseif aT>aP.Main.AbsolutePosition.X+aP.Main.AbsoluteSize.X then aT=aP.Main.AbsolutePosition.X+aP.Main.AbsoluteSize.X end;if aR<aP.Main.AbsolutePosition.X+5 then aR=aP.Main.AbsolutePosition.X+5 elseif aR>aP.Main.AbsolutePosition.X+aP.Main.AbsoluteSize.X then aR=aP.Main.AbsolutePosition.X+aP.Main.AbsoluteSize.X end;if aR<=aT and aT-aS<0 then aS=aT elseif aR>=aT and aT-aS>0 then aS=aT end;aP.Main.Progress.Size=UDim2.new(0,aR-aP.Main.AbsolutePosition.X,1,0)local aV=aN.Value[1]+(aT-aP.Main.AbsolutePosition.X)/aP.Main.AbsoluteSize.X*(aN.Value[2]-aN.Value[1])aV=math.floor(aV/aN.Increment+0.5)*aN.Increment*10000000/10000000;if not aN.Suffix then aP.Main.Information.Text=tostring(aV)else aP.Main.Information.Text=tostring(aV).." "..aN.Suffix end;if aN.CurrentValue~=aV then local E,F=pcall(function()aN.Callback(aV)end)aN.CurrentValue=aV end else aP.Main.Progress.Size=UDim2.new(0,aT-aP.Main.AbsolutePosition.X>5 and aT-aP.Main.AbsolutePosition.X or 5,1,0)aU:Disconnect()end end)end)function aN:Set(aW)aP.Main.Progress.Size=UDim2.new(0,aP.Main.AbsoluteSize.X*(aW+aN.Value[1])/(aN.Value[2]-aN.Value[1])>5 and aP.Main.AbsoluteSize.X*aW/(aN.Value[2]-aN.Value[1])or 5,1,0)aP.Main.Information.Text=tostring(aW).." "..aN.Suffix;local E,F=pcall(function()aN.Callback(aW)end)aN.CurrentValue=aW end;return aN end;function _:CreateDropdown(aX)local aY=L.Template.Dropdown:Clone()if string.find(aX.Name,"closed")then aY.Name="Dropdown"else aY.Name=aX.Name end;aY.Title.Text=aX.Name;aY.Visible=true;aY.Parent=a0;aY.Size=UDim2.new(1,-10,0,45)aY.Interact.Size=UDim2.new(0,429,0,45)aY.Interact.Position=UDim2.new(0,214,0,22)aY.List.Visible=false;if typeof(aX.CurrentOption)=="string"then aX.CurrentOption={aX.CurrentOption}end;if not aX.MultipleOptions then aX.CurrentOption={aX.CurrentOption[1]}end;if aX.MultipleOptions then if#aX.CurrentOption==1 then aY.Selected.Text=aX.CurrentOption[1]elseif#aX.CurrentOption==0 then aY.Selected.Text="None"else aY.Selected.Text="Various"end else aY.Selected.Text=aX.CurrentOption[1]end;aY.BackgroundTransparency=1;aY.UIStroke.Transparency=1;aY.Title.TextTransparency=1;aY.Size=UDim2.new(1,-10,0,45)a2()q:Create(aY,TweenInfo.new(0.7,Enum.EasingStyle.Quint),{BackgroundTransparency=0}):Play()q:Create(aY.UIStroke,TweenInfo.new(0.7,Enum.EasingStyle.Quint),{Transparency=0}):Play()q:Create(aY.Title,TweenInfo.new(0.7,Enum.EasingStyle.Quint),{TextTransparency=0}):Play()for B,aZ in ipairs(aY.List:GetChildren())do if aZ.ClassName=="Frame"and aZ.Name~="Placeholder"then aZ:Destroy()end end;aY.Toggle.Rotation=180;aY.Interact.MouseButton1Click:Connect(function()q:Create(aY.UIStroke,TweenInfo.new(0.4,Enum.EasingStyle.Quint),{Transparency=1}):Play()wait(0.1)q:Create(aY.UIStroke,TweenInfo.new(0.4,Enum.EasingStyle.Quint),{Transparency=0}):Play()if Debounce then return end;if aY.List.Visible then Debounce=true;local a_=q:Create(aY,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Size=UDim2.new(1,-10,0,45)})local b0=pcall(function()a_:Play()end)local b1=false;if b0 then b1=true end;spawn(function()while b1 do a2()wait()end end)a_.Completed:Connect(function()b1=false end)for B,b2 in ipairs(aY.List:GetChildren())do if b2.ClassName=="Frame"and b2.Name~="Placeholder"then q:Create(b2,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{BackgroundTransparency=1}):Play()q:Create(b2.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{Transparency=1}):Play()q:Create(b2.Title,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{TextTransparency=1}):Play()end end;q:Create(aY.List,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{ScrollBarImageTransparency=1}):Play()q:Create(aY.Toggle,TweenInfo.new(0.7,Enum.EasingStyle.Quint),{Rotation=180}):Play()wait(0.35)aY.List.Visible=false;Debounce=false else local a_=q:Create(aY,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Size=UDim2.new(1,-10,0,180)})local b0=pcall(function()a_:Play()end)local b1=false;if b0 then b1=true end;spawn(function()while b1 do a2()wait()end end)a_.Completed:Connect(function()b1=false end)aY.List.Visible=true;q:Create(aY.List,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{ScrollBarImageTransparency=0.7}):Play()q:Create(aY.Toggle,TweenInfo.new(0.7,Enum.EasingStyle.Quint),{Rotation=0}):Play()for B,b2 in ipairs(aY.List:GetChildren())do if b2.ClassName=="Frame"and b2.Name~="Placeholder"then q:Create(b2,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{BackgroundTransparency=0}):Play()q:Create(b2.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{Transparency=0}):Play()q:Create(b2.Title,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{TextTransparency=0}):Play()end end end end)for B,b3 in ipairs(aX.Options)do local b4=L.Template.Dropdown.List.Template:Clone()b4.Name=b3;b4.Title.Text=b3;b4.Parent=aY.List;b4.Visible=true;if aX.CurrentOption==b3 then b4.BackgroundColor3=Color3.fromRGB(40,40,40)end;b4.MouseEnter:Connect(function()q:Create(b4,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(40,40,40)}):Play()q:Create(b4,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0.921,0,0,38)}):Play()end)b4.MouseLeave:Connect(function()q:Create(b4,e.Theme.Dark.TweenInfo,{BackgroundColor3=Color3.fromRGB(30,30,30)}):Play()q:Create(b4,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0.921,0,0,38)}):Play()end)b4.Interact.ZIndex=50;b4.Interact.MouseButton1Click:Connect(function()if not aX.MultipleOptions and table.find(aX.CurrentOption,b3)then return end;if table.find(aX.CurrentOption,b3)then table.remove(aX.CurrentOption,table.find(aX.CurrentOption,b3))if aX.MultipleOptions then if#aX.CurrentOption==1 then aY.Selected.Text=aX.CurrentOption[1]elseif#aX.CurrentOption==0 then aY.Selected.Text="None"else aY.Selected.Text="Various"end else aY.Selected.Text=aX.CurrentOption[1]end else if not aX.MultipleOptions then table.clear(aX.CurrentOption)end;table.insert(aX.CurrentOption,b3)if aX.MultipleOptions then if#aX.CurrentOption==1 then aY.Selected.Text=aX.CurrentOption[1]elseif#aX.CurrentOption==0 then aY.Selected.Text="None"else aY.Selected.Text="Various"end else aY.Selected.Text=aX.CurrentOption[1]end;local b5=b4.Size;q:Create(b4,e.Theme.Dark.TweenInfo,{Size=UDim2.new(0.875,0,0,38)}):Play()q:Create(b4,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{BackgroundColor3=Color3.fromRGB(40,40,40)}):Play()Debounce=true;wait(0.2)q:Create(b4,e.Theme.Dark.TweenInfo,{Size=b5}):Play()end;local E,F=pcall(function()aX.Callback(aX.MultipleOptions==false and aX.CurrentOption[1]or aX.CurrentOption)end)for B,b6 in ipairs(aY.List:GetChildren())do if b6.ClassName=="Frame"and b6.Name~="Placeholder"and not table.find(aX.CurrentOption,b6.Name)then q:Create(b6,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{BackgroundColor3=Color3.fromRGB(30,30,30)}):Play()end end;if not aX.MultipleOptions then wait(0.1)local a_=q:Create(aY,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Size=UDim2.new(1,-10,0,45)})local b0=pcall(function()a_:Play()end)local b1=false;if b0 then b1=true end;spawn(function()while b1 do a2()wait()end end)a_.Completed:Connect(function()b1=false end)for B,b2 in ipairs(aY.List:GetChildren())do if b2.ClassName=="Frame"and b2.Name~="Placeholder"then q:Create(b2,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{BackgroundTransparency=1}):Play()q:Create(b2.UIStroke,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{Transparency=1}):Play()q:Create(b2.Title,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{TextTransparency=1}):Play()end end;q:Create(aY.List,TweenInfo.new(0.3,Enum.EasingStyle.Quint),{ScrollBarImageTransparency=1}):Play()q:Create(aY.Toggle,TweenInfo.new(0.7,Enum.EasingStyle.Quint),{Rotation=180}):Play()wait(0.35)aY.List.Visible=false end;Debounce=false end)end;for B,b6 in ipairs(aY.List:GetChildren())do if b6.ClassName=="Frame"and b6.Name~="Placeholder"then if not table.find(aX.CurrentOption,b6.Name)then b6.BackgroundColor3=Color3.fromRGB(30,30,30)else b6.BackgroundColor3=Color3.fromRGB(40,40,40)end end end;function aX:Set(b7)aX.CurrentOption=b7;if typeof(aX.CurrentOption)=="string"then aX.CurrentOption={aX.CurrentOption}end;if not aX.MultipleOptions then aX.CurrentOption={aX.CurrentOption[1]}end;if aX.MultipleOptions then if#aX.CurrentOption==1 then aY.Selected.Text=aX.CurrentOption[1]elseif#aX.CurrentOption==0 then aY.Selected.Text="None"else aY.Selected.Text="Various"end else aY.Selected.Text=aX.CurrentOption[1]end;local E,F=pcall(function()aX.Callback(b7)end)for B,b6 in ipairs(aY.List:GetChildren())do if b6.ClassName=="Frame"and b6.Name~="Placeholder"then if not table.find(aX.CurrentOption,b6.Name)then b6.BackgroundColor3=Color3.fromRGB(30,30,30)else b6.BackgroundColor3=Color3.fromRGB(40,40,40)end end end end;return aX end;function _:CreateTextbox(b8)local aQ=L.Template.Input:Clone()aQ.Name=b8.Name;aQ.Title.Text=b8.Name;aQ.Visible=true;aQ.Parent=a0;a2()aQ.InputFrame.InputBox.PlaceholderText=b8.PlaceholderText;aQ.InputFrame.Size=UDim2.new(0,aQ.InputFrame.InputBox.TextBounds.X+24,0,30)aQ.InputFrame.InputBox.FocusLost:Connect(function()local E,F=pcall(function()b8.Callback(aQ.InputFrame.InputBox.Text)end)if b8.RemoveTextAfterFocusLost then aQ.InputFrame.InputBox.Text=""end;aQ.InputFrame.Size=UDim2.new(0,aQ.InputFrame.InputBox.TextBounds.X+24,0,30)end)aQ.InputFrame.InputBox:GetPropertyChangedSignal("Text"):Connect(function()q:Create(aQ.InputFrame,TweenInfo.new(0.55,Enum.EasingStyle.Quint,Enum.EasingDirection.Out),{Size=UDim2.new(0,aQ.InputFrame.InputBox.TextBounds.X+24,0,30)}):Play()end)local b8={}function b8:Set(b9)aQ.InputFrame.InputBox.Text=b9 end;return b8 end;function _:CreateParagraph(ba)local bb=L.Template.Paragraph:Clone()bb.Name=ba.Title;bb.Title.Text=ba.Title;bb.Content.Text=ba.Description;bb.Visible=true;bb.Parent=a0;a2()end;function _:CreateLabel(bc)local bb=L.Template.Label:Clone()bb.Name=bc.Description;bb.Title.Text=bc.Description;bb.Visible=true;bb.Parent=a0;a2()end;function _:CreateCard(bd)local be=L.Template.Card:Clone()be.Name=bd.Title;be.Title.Text=bd.Title;be.Description.Text=bd.Description;be.State.Text=bd.SecondaryTitle or""be.PreviewImage.Image=bd.Image or"rbxassetid://14167800463"be.Parent=a0;a2()be.Button1.Visible=false;be.Button2.Visible=false;if bd.Buttons then if bd.Buttons.Button1 then local a7=be.Button1;a7.Visible=true;a7.Name=bd.Buttons.Button1.Name;a7.Text=bd.Buttons.Button1.Name;a7.MouseButton1Click:Connect(function()local E,F=pcall(bd.Buttons.Button1.Callback)end)end;if bd.Buttons.Button2 then local a7=be.Button2;a7.Visible=true;a7.Name=bd.Buttons.Button2.Name;a7.Text=bd.Buttons.Button2.Name;a7.MouseButton1Click:Connect(function()local E,F=pcall(bd.Buttons.Button2.Callback)end)end end end;return _ end;return X end;return M end;return e
+
+
+local L_1_ = "Alpha 0.1"
+local L_2_ = 5;
+local L_3_ = "AuraIS"
+local L_4_ = L_3_ .. "/Configurations"
+local L_5_ = {
+	Flags = {},
+	Theme = {
+		Dark = {
+			TextColor = Color3.fromRGB(240, 240, 240),
+			MainColor = Color3.fromRGB(16, 16, 16),
+			SecondaryColor = Color3.fromRGB(22, 22, 22),
+			NotificationActionsBackground = Color3.fromRGB(230, 230, 230),
+			ImageColor = Color3.fromRGB(255, 255, 255),
+			TabBackground = Color3.fromRGB(80, 80, 80),
+			TabStroke = Color3.fromRGB(85, 85, 85),
+			TabBackgroundSelected = Color3.fromRGB(210, 210, 210),
+			TabTextColor = Color3.fromRGB(240, 240, 240),
+			SelectedTabTextColor = Color3.fromRGB(50, 50, 50),
+			SliderColor = Color3.fromRGB(170, 0, 255),
+			ToggleEnabled = Color3.fromRGB(170, 0, 255),
+			ToggleDisabled = Color3.fromRGB(139, 139, 139),
+			CardButton = Color3.fromRGB(230, 230, 230),
+			TweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quint)
+		}
+	}
+}
+local L_6_ = tostring(math.random(1, 100)) .. tostring(math.random(1, 50)) .. tostring(math.random(1, 100))
+function L_5_:DragFunc(L_16_arg0, L_17_arg1)
+	L_17_arg1 = L_17_arg1 or L_16_arg0;
+	local L_18_ = false;
+	local L_19_, L_20_, L_21_;
+	L_16_arg0.InputBegan:Connect(function(L_22_arg0)
+		if L_22_arg0.UserInputType == Enum.UserInputType.MouseButton1 or L_22_arg0.UserInputType == Enum.UserInputType.Touch then
+			L_18_ = true;
+			L_20_ = L_22_arg0.Position;
+			L_21_ = L_17_arg1.Position;
+			L_22_arg0.Changed:Connect(function()
+				if L_22_arg0.UserInputState == Enum.UserInputState.End then
+					L_18_ = false
+				end
+			end)
+		end
+	end)
+	L_16_arg0.InputChanged:Connect(function(L_23_arg0)
+		if L_23_arg0.UserInputType == Enum.UserInputType.MouseMovement or L_23_arg0.UserInputType == Enum.UserInputType.Touch then
+			L_19_ = L_23_arg0
+		end
+	end)
+	game:GetService("UserInputService").InputChanged:Connect(function(L_24_arg0)
+		if L_24_arg0 == L_19_ and L_18_ then
+			local L_25_ = L_24_arg0.Position - L_20_;
+			L_17_arg1.Position = UDim2.new(L_21_.X.Scale, L_21_.X.Offset + L_25_.X, L_21_.Y.Scale, L_21_.Y.Offset + L_25_.Y)
+		end
+	end)
+end;
+function L_5_:ToggleUI()
+	if game.CoreGui[L_6_].Enabled then
+		game.CoreGui[L_6_].Enabled = false
+	else
+		game.CoreGui[L_6_].Enabled = true
+	end
+end;
+local L_7_ = game:GetService("TextService")
+local L_8_ = game:GetService("UserInputService")
+local L_9_ = game:GetService("TweenService")
+local L_10_ = game:GetService("HttpService")
+local L_11_ = game:GetService("RunService")
+local L_12_ = game:GetService("Players")
+local L_13_ = game:GetService("CoreGui")
+local L_14_ = L_12_.LocalPlayer:GetMouse()
+local L_15_ = game:GetObjects("rbxassetid://14742706510")[1]
+L_15_.Enabled = false;
+L_15_.DisplayOrder = 100;
+if get_hidden_gui or gethui then
+	L_15_.Parent = L_13_
+else
+	L_15_.Parent = L_13_
+end;
+function L_5_:Notify(L_26_arg0, L_27_arg1)
+	spawn(function()
+		local L_28_ = L_27_arg1.Duration or L_2_;
+		local L_29_ = L_15_.Notifications[L_26_arg0]:Clone()
+		L_29_.Parent = L_15_.Notifications;
+		L_29_.Name = L_27_arg1.Title or "Unknown Title"
+		L_29_.Parent = L_15_.Notifications;
+		L_29_.Visible = true;
+		L_29_.Actions.ButtonTemplate.Visible = false;
+		if L_27_arg1.Actions then
+			for L_30_forvar0, L_31_forvar1 in pairs(L_27_arg1.Actions) do
+				local L_32_ = L_29_.Actions.ButtonTemplate:Clone()
+				L_32_.Name = L_31_forvar1.Name;
+				L_32_.Visible = true;
+				L_32_.Parent = L_29_.Actions;
+				L_32_.Text = L_31_forvar1.Name;
+				L_32_.Size = UDim2.new(0, L_32_.TextBounds.X + 27, 1, 0)
+				L_32_.MouseButton1Click:Connect(function()
+					local L_33_, L_34_ = pcall(L_31_forvar1.Callback)
+				end)
+			end
+		end;
+		L_29_.Title.Text = L_27_arg1.Title or "Unknown"
+		L_29_.Description.Text = L_27_arg1.Content or "Unknown"
+		if L_27_arg1.Image then
+			L_29_.Icon.Image = L_27_arg1.Image
+		end;
+		while L_28_ >= 0 do
+			L_29_.Duration.Text = L_28_;
+			wait(1)
+			L_28_ = L_28_ - 1
+		end;
+		L_29_:Destroy()
+	end)
+end;
+function L_5_:CreateLibrary(L_35_arg0, L_36_arg1)
+	local L_37_ = {
+		Name = typeof(L_35_arg0) == "table" and L_35_arg0.Name or (typeof(L_35_arg0) == "string" and L_35_arg0 or "Undefined"),
+		Icon = typeof(L_35_arg0) == "table" and L_35_arg0.Icon or L_36_arg1 or "rbxassetid://11432865001"
+	}
+	L_15_.Enabled = true;
+	local L_38_ = L_15_.Main.SideBar;
+	local L_39_ = L_38_.Buttons;
+	local L_40_ = L_15_.Main.TabContainer;
+	L_38_.NameText.Text = L_37_.Name;
+	L_38_.Icon.Image = L_37_.Icon;
+	L_5_:DragFunc(L_38_, L_15_.Main)
+	L_39_.Parent.Minimize.MouseButton1Click:Connect(function()
+		if L_39_.Parent.Minimize.Rotation == 0 then
+			L_9_:Create(L_39_.Parent.Minimize, L_5_.Theme.Dark.TweenInfo, {
+				Rotation = 180
+			}):Play()
+			L_9_:Create(L_39_.Parent, L_5_.Theme.Dark.TweenInfo, {
+				Size = UDim2.new(0, 147, 1, 0)
+			}):Play()
+			L_9_:Create(L_40_, L_5_.Theme.Dark.TweenInfo, {
+				Size = UDim2.new(0, 349, 0, 326)
+			}):Play()
+			L_9_:Create(L_40_, L_5_.Theme.Dark.TweenInfo, {
+				Position = UDim2.new(0.305, 0, 0.021, 0)
+			}):Play()
+		else
+			L_9_:Create(L_39_.Parent.Minimize, L_5_.Theme.Dark.TweenInfo, {
+				Rotation = 0
+			}):Play()
+			L_9_:Create(L_39_.Parent, L_5_.Theme.Dark.TweenInfo, {
+				Size = UDim2.new(0, 55, 1, 0)
+			}):Play()
+			L_9_:Create(L_40_, L_5_.Theme.Dark.TweenInfo, {
+				Size = UDim2.new(0, 439, 0, 326)
+			}):Play()
+			L_9_:Create(L_40_, L_5_.Theme.Dark.TweenInfo, {
+				Position = UDim2.new(0.13, 0, 0.021, 0)
+			}):Play()
+		end
+	end)
+	local L_41_ = {}
+	function L_41_:Notify(L_42_arg0, L_43_arg1, L_44_arg2, L_45_arg3)
+		spawn(function()
+			L_15_.Main.Notifications.Visible = true;
+			local L_46_ = typeof(L_42_arg0) == "table" and L_42_arg0.Duration or L_44_arg2 or L_2_;
+			local L_47_ = L_15_.Main.Notifications.Template;
+			L_47_.Parent = L_15_.Notifications;
+			L_47_.Duration.Text = L_46_;
+			L_47_.Parent = L_15_.Main.Notifications;
+			L_47_.Visible = true;
+			for L_48_forvar0, L_49_forvar1 in pairs(L_47_.Actions:GetChildren()) do
+				if L_49_forvar1.Name ~= "ButtonTemplate" and not L_49_forvar1:IsA("UIListLayout") then
+					L_49_forvar1:Destroy()
+				end
+			end;
+			L_47_.Actions.ButtonTemplate.Visible = false;
+			if typeof(L_42_arg0) == "table" and L_42_arg0.Actions or L_45_arg3 then
+				for L_50_forvar0, L_51_forvar1 in pairs(typeof(L_42_arg0) == "table" and L_42_arg0.Actions or L_45_arg3) do
+					local L_52_ = L_47_.Actions.ButtonTemplate:Clone()
+					L_52_.Name = L_51_forvar1.Name;
+					L_52_.Visible = true;
+					L_52_.Parent = L_47_.Actions;
+					L_52_.Text = L_51_forvar1.Name;
+					L_52_.Size = UDim2.new(0, L_52_.TextBounds.X + 27, 1, 0)
+					L_52_.MouseButton1Click:Connect(function()
+						local L_53_, L_54_ = pcall(L_51_forvar1.Callback)
+					end)
+				end
+			end;
+			L_47_.Title.Text = typeof(L_42_arg0) == "table" and L_42_arg0.Title or L_42_arg0 or "Unknown"
+			L_47_.Description.Text = typeof(L_42_arg0) == "table" and L_42_arg0.Content or L_43_arg1 or "Unknown"
+			while L_46_ >= 0 do
+				L_47_.Duration.Text = L_46_;
+				wait(1)
+				L_46_ = L_46_ - 1
+			end;
+			L_15_.Main.Notifications.Visible = false;
+			for L_55_forvar0, L_56_forvar1 in pairs(L_47_.Actions:GetChildren()) do
+				if L_56_forvar1.Name ~= "ButtonTemplate" and not L_56_forvar1:IsA("UIListLayout") then
+					L_56_forvar1:Destroy()
+				end
+			end
+		end)
+	end;
+	function L_41_:CreateTab(L_57_arg0, L_58_arg1)
+		if not L_57_arg0 then
+			return
+		end;
+		local L_59_ = L_39_.Template:Clone()
+		L_59_.ImageLabel.Image = typeof(L_57_arg0) == "table" and L_57_arg0.Icon or L_58_arg1 or "rbxassetid://11432859220"
+		L_59_.TextLabel.Text = typeof(L_57_arg0) == "table" and L_57_arg0.Title or L_57_arg0 or "Unknown"
+		L_59_.Visible = true;
+		L_59_.Parent = L_39_;
+		local L_60_ = L_40_.Template:Clone()
+		L_60_.Parent = L_40_;
+		L_60_.Name = typeof(L_57_arg0) == "table" and L_57_arg0.Title or L_57_arg0 or "Unknown"
+		L_60_.Visible = true;
+		L_60_.LayoutOrder = #L_40_:GetChildren()
+		for L_62_forvar0, L_63_forvar1 in ipairs(L_60_:GetChildren()) do
+			if L_63_forvar1.ClassName == "Frame" then
+				L_63_forvar1:Destroy()
+			end
+		end;
+		L_59_.MouseButton1Click:Connect(function()
+			for L_64_forvar0, L_65_forvar1 in ipairs(L_40_:GetChildren()) do
+				if L_65_forvar1.Name ~= "Template" and L_65_forvar1.ClassName == "Frame" and L_65_forvar1 ~= L_59_ then
+				end
+			end;
+			if L_40_.UIPageLayout.CurrentPage ~= L_60_ then
+				L_40_.UIPageLayout:JumpTo(L_60_)
+			end
+		end)
+		local L_61_ = {}
+		function L_61_:CreateSection(L_66_arg0, L_67_arg1)
+			local L_68_ = {}
+			local L_69_;
+			if L_67_arg1 == "Normal" then
+				L_69_ = L_40_.Template.SectionTitle:Clone()
+				L_69_.Name = L_66_arg0;
+				L_69_.Title.Text = L_66_arg0;
+				L_69_.Visible = true;
+				L_69_.Parent = L_60_
+			elseif L_67_arg1 == "Foldable" then
+				L_69_ = L_40_.Template.FoldableSectionTitle:Clone()
+				L_69_.Name = L_66_arg0;
+				L_69_.Title.Text = L_66_arg0;
+				L_69_.Visible = true;
+				L_69_.Parent = L_60_
+			end;
+			L_69_.Title.TextTransparency = 1;
+			L_9_:Create(L_69_.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+				TextTransparency = 0
+			}):Play()
+			function L_68_:SetName(L_71_arg0)
+				L_69_.Title.Text = L_71_arg0
+			end;
+			local function L_70_func()
+				local L_72_ = L_69_.UIListLayout.AbsoluteContentSize;
+				L_69_.Size = UDim2.new(1, 0, 0, L_72_.Y)
+			end;
+			if L_67_arg1 == "Foldable" then
+				local L_73_ = true;
+				L_69_.Title.TextButton.MouseButton1Click:Connect(function()
+					if L_73_ then
+						L_73_ = false;
+						for L_74_forvar0, L_75_forvar1 in ipairs(L_69_:GetChildren()) do
+							if L_75_forvar1.Name ~= "UIListLayout" and L_75_forvar1.Name ~= "UIPadding" and not L_75_forvar1:IsA("TextLabel") then
+								L_75_forvar1.Visible = false
+							end
+						end
+					else
+						L_73_ = true;
+						for L_76_forvar0, L_77_forvar1 in ipairs(L_69_:GetChildren()) do
+							if L_77_forvar1.Name ~= "UIListLayout" and L_77_forvar1.Name ~= "UIPadding" and not L_77_forvar1:IsA("TextLabel") then
+								L_77_forvar1.Visible = true
+							end
+						end
+					end;
+					L_70_func()
+				end)
+			end;
+			function L_68_:CreateButton(L_78_arg0)
+				local L_79_ = {
+					Func = L_78_arg0.Callback
+				}
+				local L_80_ = L_40_.Template.Button:Clone()
+				L_80_.Name = L_78_arg0.Name or "Undefined"
+				L_80_.Title.Text = L_78_arg0.Name or "Undefined"
+				L_80_.Visible = true;
+				L_80_.Parent = L_69_;
+				L_70_func()
+				L_80_.Interact.MouseButton1Click:Connect(function()
+					local L_81_, L_82_ = pcall(L_79_.Func)
+					if not L_81_ then
+						local L_83_ = L_80_.Size;
+						L_9_:Create(L_80_, L_5_.Theme.Dark.TweenInfo, {
+							Size = UDim2.new(0.992, -10, 0, 35)
+						}):Play()
+						L_9_:Create(L_80_, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundColor3 = Color3.fromRGB(103, 0, 0)
+						}):Play()
+						L_80_.Title.Text = "Error occurred"
+						print("[AuraIS]: An error occurred: " .. tostring(L_82_))
+						wait(0.5)
+						L_80_.Title.Text = L_78_arg0.Name;
+						L_9_:Create(L_80_, L_5_.Theme.Dark.TweenInfo, {
+							Size = L_83_
+						}):Play()
+						L_9_:Create(L_80_, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundColor3 = L_5_.Theme.Dark.SecondaryColor
+						}):Play()
+					else
+						local L_84_ = L_80_.Size;
+						L_9_:Create(L_80_, L_5_.Theme.Dark.TweenInfo, {
+							Size = UDim2.new(0.992, -10, 0, 35)
+						}):Play()
+						wait(0.2)
+						L_9_:Create(L_80_, L_5_.Theme.Dark.TweenInfo, {
+							Size = L_84_
+						}):Play()
+					end
+				end)
+				function L_79_:SetCallback(L_85_arg0)
+					L_79_.Func = L_85_arg0
+				end;
+				function L_79_:SetName(L_86_arg0)
+					L_80_.Title.Text = L_86_arg0;
+					L_80_.Name = L_86_arg0
+				end;
+				return L_79_
+			end;
+			function L_68_:CreateToggle(L_87_arg0, L_88_arg1)
+				if L_87_arg0 == "Radio" then
+					local L_89_ = {}
+					local L_90_ = L_40_.Template.Toggle_Radio:Clone()
+					local L_91_ = L_90_.Interact;
+					local L_92_ = L_90_.Switch;
+					local L_93_ = L_92_.Indicator;
+					L_93_.BackgroundTransparency = 1;
+					L_93_.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+					L_90_.Name = L_88_arg1.Name;
+					L_90_.Title.Text = L_88_arg1.Name;
+					L_90_.Visible = true;
+					L_90_.Parent = L_69_;
+					L_70_func()
+					L_90_.Interact.MouseButton1Click:Connect(function()
+						if L_88_arg1.CurrentValue then
+							L_88_arg1.CurrentValue = false;
+							L_9_:Create(L_93_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundTransparency = 1
+							}):Play()
+						else
+							L_88_arg1.CurrentValue = true;
+							L_9_:Create(L_93_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundTransparency = 0
+							}):Play()
+						end;
+						local L_94_, L_95_ = pcall(function()
+							L_88_arg1.Callback(L_88_arg1.CurrentValue)
+						end)
+						if not L_94_ then
+							L_9_:Create(L_90_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundColor3 = Color3.fromRGB(103, 0, 0)
+							}):Play()
+							L_90_.Title.Text = "Error occurred"
+							print("[AuraIS]: An error occurred: " .. tostring(L_95_))
+							wait(0.5)
+							L_90_.Title.Text = L_88_arg1.Name;
+							L_9_:Create(L_90_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundColor3 = L_5_.Theme.Dark.SecondaryColor
+							}):Play()
+						end
+					end)
+					return L_88_arg1
+				elseif L_87_arg0 == "Normal" then
+					local L_96_ = {}
+					local L_97_ = L_40_.Template.Toggle:Clone()
+					local L_98_ = L_97_.Interact;
+					local L_99_ = L_97_.Switch;
+					local L_100_ = L_99_.Indicator;
+					L_97_.Name = L_88_arg1.Name;
+					L_97_.Title.Text = L_88_arg1.Name;
+					L_97_.Visible = true;
+					L_97_.Parent = L_69_;
+					L_70_func()
+					L_97_.Interact.MouseButton1Click:Connect(function()
+						if L_88_arg1.CurrentValue then
+							L_88_arg1.CurrentValue = false;
+							L_9_:Create(L_100_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundColor3 = Color3.fromRGB(139, 139, 139)
+							}):Play()
+							L_9_:Create(L_100_, L_5_.Theme.Dark.TweenInfo, {
+								Position = UDim2.new(0.07, 0, 0.5, 0)
+							}):Play()
+						else
+							L_88_arg1.CurrentValue = true;
+							L_9_:Create(L_100_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+							}):Play()
+							L_9_:Create(L_100_, L_5_.Theme.Dark.TweenInfo, {
+								Position = UDim2.new(0.537, 0, 0.5, 0)
+							}):Play()
+						end;
+						local L_101_, L_102_ = pcall(function()
+							L_88_arg1.Callback(L_88_arg1.CurrentValue)
+						end)
+						if not L_101_ then
+							L_9_:Create(L_97_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundColor3 = Color3.fromRGB(103, 0, 0)
+							}):Play()
+							L_97_.Title.Text = "Error occurred"
+							print("[AuraIS]: An error occurred: " .. tostring(L_102_))
+							wait(0.5)
+							L_97_.Title.Text = L_88_arg1.Name;
+							L_9_:Create(L_97_, L_5_.Theme.Dark.TweenInfo, {
+								BackgroundColor3 = L_5_.Theme.Dark.SecondaryColor
+							}):Play()
+						end
+					end)
+					L_97_.MouseEnter:Connect(function()
+						L_9_:Create(L_97_, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+						}):Play()
+						L_9_:Create(L_97_, L_5_.Theme.Dark.TweenInfo, {
+							Size = UDim2.new(1.011, -10, 0, 40)
+						}):Play()
+					end)
+					L_97_.MouseLeave:Connect(function()
+						L_9_:Create(L_97_, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+						}):Play()
+						L_9_:Create(L_97_, L_5_.Theme.Dark.TweenInfo, {
+							Size = UDim2.new(1, -10, 0, 40)
+						}):Play()
+					end)
+					return L_88_arg1
+				end
+			end;
+			function L_68_:CreateColorPicker(L_103_arg0)
+				local L_104_ = L_40_.Template.ColorPicker:Clone()
+				local L_105_ = L_104_.Switch;
+				local L_106_ = L_104_["RGB"]
+				local L_107_ = L_104_.Color;
+				local L_108_ = L_107_.SliderPoint;
+				local L_109_ = L_104_.Darkness;
+				local L_110_ = L_109_.SliderPoint;
+				L_104_.Name = L_103_arg0.Name;
+				L_104_.Title.Text = L_103_arg0.Name;
+				L_104_.Visible = true;
+				L_104_.Parent = L_69_;
+				local L_111_ = {
+					1,
+					1,
+					1
+				}
+				local L_112_ = false;
+				local L_113_ = false;
+				local L_114_;
+				local L_115_ = L_103_arg0.Callback;
+				L_70_func()
+				local function L_116_func(L_122_arg0)
+					return math.acos(math.cos(L_122_arg0 * math.pi)) / math.pi
+				end;
+				counter = 0;
+				local function L_117_func()
+					return game.Players.LocalPlayer:GetMouse()
+				end;
+				local function L_118_func()
+					if L_112_ then
+						local L_123_ = math.clamp(L_14_.X - L_107_.AbsolutePosition.X, 0, L_107_.AbsoluteSize.X)
+						local L_124_ = math.clamp(L_14_.Y - L_107_.AbsolutePosition.Y, 0, L_107_.AbsoluteSize.Y)
+						local L_125_ = math.floor(L_107_.AbsoluteSize.X)
+						local L_126_ = math.floor(L_107_.AbsoluteSize.Y)
+						if L_123_ < 0 then
+							L_123_ = 0
+						end;
+						if L_123_ > L_125_ then
+							L_123_ = L_125_
+						end;
+						if L_124_ < 0 then
+							L_124_ = 0
+						end;
+						if L_124_ > L_126_ then
+							L_124_ = L_126_
+						end;
+						L_123_ = L_123_ / L_125_;
+						L_124_ = L_124_ / L_126_;
+						local L_127_ = L_108_.AbsoluteSize.X / 2;
+						local L_128_ = L_108_.AbsoluteSize.Y / 2;
+						L_108_.Position = UDim2.new(math.min(L_123_, 1 - L_127_ / L_125_), 0, math.min(L_124_, 1 - L_128_ / L_126_), 0)
+						L_111_ = {
+							1 - L_123_,
+							1 - L_124_,
+							L_111_[3]
+						}
+						local L_129_ = Color3.fromHSV(L_111_[1], L_111_[2], L_111_[3])
+						L_115_(L_129_)
+					end;
+					if L_113_ then
+						local L_130_ = L_117_func()
+						local L_131_ = L_130_.Y - L_109_.AbsolutePosition.Y;
+						local L_132_ = math.floor(L_107_.AbsoluteSize.Y) - 1;
+						if L_131_ < 0 then
+							L_131_ = 0
+						end;
+						if L_131_ > L_132_ then
+							L_131_ = L_132_
+						end;
+						L_131_ = L_131_ / L_132_;
+						local L_133_ = L_110_.AbsoluteSize.Y / 2;
+						L_110_.Position = UDim2.new(0.5, 0, math.min(L_131_, 1 - L_133_ / L_132_), 0)
+						L_110_.ImageColor3 = Color3.fromHSV(0, 0, L_131_)
+						L_111_ = {
+							L_111_[1],
+							L_111_[2],
+							1 - L_131_
+						}
+						local L_134_ = Color3.fromHSV(L_111_[1], L_111_[2], L_111_[3])
+						L_115_(L_134_)
+					end
+				end;
+				local function L_119_func(L_135_arg0)
+					local L_136_ = L_108_.AbsoluteSize.X / 2;
+					local L_137_ = L_108_.AbsoluteSize.Y / 2;
+					L_111_ = {
+						L_135_arg0[1],
+						L_135_arg0[2],
+						L_135_arg0[3]
+					}
+					L_108_.Position = UDim2.new(L_111_[1], -L_136_, L_111_[2] - 1, -L_137_)
+					L_110_.Position = UDim2.new(0.5, 0, L_111_[3] - 1, -L_137_)
+					local L_138_ = Color3.fromHSV(L_111_[1], L_111_[2], L_111_[3])
+				end;
+				local function L_120_func(L_139_arg0)
+					local L_140_ = math.floor(L_107_.AbsoluteSize.X)
+					local L_141_ = math.floor(L_107_.AbsoluteSize.Y)
+					local L_142_ = L_108_.AbsoluteSize.X / 2;
+					local L_143_ = L_108_.AbsoluteSize.Y / 2;
+					L_111_ = {
+						L_139_arg0[1],
+						L_139_arg0[2],
+						L_111_[3]
+					}
+					L_108_.Position = UDim2.new(math.min(L_111_[1], 1 - L_142_ / L_141_), 0, math.min(L_111_[2] - 1, 1 - L_143_ / L_141_))
+					local L_144_ = Color3.fromHSV(L_111_[1], L_111_[2], L_111_[3])
+					L_115_(L_144_)
+				end;
+				local function L_121_func()
+					if rainbow then
+						L_9_:Create(L_105_.Indicator, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundTransparency = 1
+						}):Play()
+						rainbow = false;
+						L_114_:Disconnect()
+					else
+						L_9_:Create(L_105_.Indicator, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundTransparency = 0
+						}):Play()
+						rainbow = true;
+						L_114_ = game:GetService("RunService").RenderStepped:Connect(function()
+							L_120_func({
+								L_116_func(counter),
+								1,
+								1
+							})
+							counter = counter + 0.01
+						end)
+					end
+				end;
+				L_105_:FindFirstChildWhichIsA("TextButton").MouseButton1Click:Connect(L_121_func)
+				game.Players.LocalPlayer:GetMouse().Move:connect(L_118_func)
+				L_107_.MouseButton1Down:connect(function()
+					L_112_ = true
+				end)
+				L_109_.MouseButton1Down:connect(function()
+					L_113_ = true
+				end)
+				L_8_.InputEnded:Connect(function(L_145_arg0)
+					if L_145_arg0.UserInputType == Enum.UserInputType.MouseButton1 or L_145_arg0.UserInputType == Enum.UserInputType.Touch then
+						if L_113_ then
+							L_113_ = false
+						end;
+						if L_112_ then
+							L_112_ = false
+						end
+					end
+				end)
+				return L_103_arg0
+			end;
+			function L_68_:CreateSlider(L_146_arg0)
+				local L_147_ = false;
+				local L_148_ = L_40_.Template.Slider:Clone()
+				L_148_.Name = L_146_arg0.Name;
+				L_148_.Title.Text = L_146_arg0.Name;
+				L_148_.Title.TextScaled = false;
+				L_148_.Visible = true;
+				L_148_.Parent = L_69_;
+				L_70_func()
+				L_148_.Main.Progress.Size = UDim2.new(0, L_148_.Main.AbsoluteSize.X * (L_146_arg0.CurrentValue + L_146_arg0.Value[1]) / (L_146_arg0.Value[2] - L_146_arg0.Value[1]) > 5 and L_148_.Main.AbsoluteSize.X * L_146_arg0.CurrentValue / (L_146_arg0.Value[2] - L_146_arg0.Value[1]) or 5, 1, 0)
+				if not L_146_arg0.Suffix then
+					L_148_.Main.Information.Text = tostring(L_146_arg0.CurrentValue)
+				else
+					L_148_.Main.Information.Text = tostring(L_146_arg0.CurrentValue) .. " " .. L_146_arg0.Suffix
+				end;
+				L_148_.Main.Interact.InputBegan:Connect(function(L_149_arg0)
+					if L_149_arg0.UserInputType == Enum.UserInputType.MouseButton1 or L_149_arg0.UserInputType == Enum.UserInputType.Touch then
+						L_147_ = true
+					end
+				end)
+				L_148_.Main.Interact.InputEnded:Connect(function(L_150_arg0)
+					if L_150_arg0.UserInputType == Enum.UserInputType.MouseButton1 or L_150_arg0.UserInputType == Enum.UserInputType.Touch then
+						L_147_ = false
+					end
+				end)
+				L_148_.Main.Interact.MouseButton1Down:Connect(function(L_151_arg0)
+					local L_152_ = L_148_.Main.Progress.AbsolutePosition.X + L_148_.Main.Progress.AbsoluteSize.X;
+					local L_153_ = L_152_;
+					local L_154_ = L_151_arg0;
+					local L_155_;
+					L_155_ = L_11_.Stepped:Connect(function()
+						if L_147_ then
+							L_154_ = L_8_:GetMouseLocation().X;
+							L_152_ = L_154_;
+							if L_154_ < L_148_.Main.AbsolutePosition.X then
+								L_154_ = L_148_.Main.AbsolutePosition.X
+							elseif L_154_ > L_148_.Main.AbsolutePosition.X + L_148_.Main.AbsoluteSize.X then
+								L_154_ = L_148_.Main.AbsolutePosition.X + L_148_.Main.AbsoluteSize.X
+							end;
+							if L_152_ < L_148_.Main.AbsolutePosition.X + 5 then
+								L_152_ = L_148_.Main.AbsolutePosition.X + 5
+							elseif L_152_ > L_148_.Main.AbsolutePosition.X + L_148_.Main.AbsoluteSize.X then
+								L_152_ = L_148_.Main.AbsolutePosition.X + L_148_.Main.AbsoluteSize.X
+							end;
+							if L_152_ <= L_154_ and L_154_ - L_153_ < 0 then
+								L_153_ = L_154_
+							elseif L_152_ >= L_154_ and L_154_ - L_153_ > 0 then
+								L_153_ = L_154_
+							end;
+							L_148_.Main.Progress.Size = UDim2.new(0, L_152_ - L_148_.Main.AbsolutePosition.X, 1, 0)
+							local L_156_ = L_146_arg0.Value[1] + (L_154_ - L_148_.Main.AbsolutePosition.X) / L_148_.Main.AbsoluteSize.X * (L_146_arg0.Value[2] - L_146_arg0.Value[1])
+							L_156_ = math.floor(L_156_ / L_146_arg0.Increment + 0.5) * L_146_arg0.Increment * 10000000 / 10000000;
+							if not L_146_arg0.Suffix then
+								L_148_.Main.Information.Text = tostring(L_156_)
+							else
+								L_148_.Main.Information.Text = tostring(L_156_) .. " " .. L_146_arg0.Suffix
+							end;
+							if L_146_arg0.CurrentValue ~= L_156_ then
+								local L_157_, L_158_ = pcall(function()
+									L_146_arg0.Callback(L_156_)
+								end)
+								L_146_arg0.CurrentValue = L_156_
+							end
+						else
+							L_148_.Main.Progress.Size = UDim2.new(0, L_154_ - L_148_.Main.AbsolutePosition.X > 5 and L_154_ - L_148_.Main.AbsolutePosition.X or 5, 1, 0)
+							L_155_:Disconnect()
+						end
+					end)
+				end)
+				function L_146_arg0:Set(L_159_arg0)
+					L_148_.Main.Progress.Size = UDim2.new(0, L_148_.Main.AbsoluteSize.X * (L_159_arg0 + L_146_arg0.Value[1]) / (L_146_arg0.Value[2] - L_146_arg0.Value[1]) > 5 and L_148_.Main.AbsoluteSize.X * L_159_arg0 / (L_146_arg0.Value[2] - L_146_arg0.Value[1]) or 5, 1, 0)
+					L_148_.Main.Information.Text = tostring(L_159_arg0) .. " " .. L_146_arg0.Suffix;
+					local L_160_, L_161_ = pcall(function()
+						L_146_arg0.Callback(L_159_arg0)
+					end)
+					L_146_arg0.CurrentValue = L_159_arg0
+				end;
+				return L_146_arg0
+			end;
+			function L_68_:CreateDropdown(L_162_arg0)
+				local L_163_ = L_40_.Template.Dropdown:Clone()
+				if string.find(L_162_arg0.Name, "closed") then
+					L_163_.Name = "Dropdown"
+				else
+					L_163_.Name = L_162_arg0.Name
+				end;
+				L_163_.Title.Text = L_162_arg0.Name;
+				L_163_.Visible = true;
+				L_163_.Parent = L_69_;
+				L_163_.Size = UDim2.new(1, -10, 0, 45)
+				L_163_.Interact.Size = UDim2.new(0, 429, 0, 45)
+				L_163_.Interact.Position = UDim2.new(0, 214, 0, 22)
+				L_163_.List.Visible = false;
+				if typeof(L_162_arg0.CurrentOption) == "string" then
+					L_162_arg0.CurrentOption = {
+						L_162_arg0.CurrentOption
+					}
+				end;
+				if not L_162_arg0.MultipleOptions then
+					L_162_arg0.CurrentOption = {
+						L_162_arg0.CurrentOption[1]
+					}
+				end;
+				if L_162_arg0.MultipleOptions then
+					if #L_162_arg0.CurrentOption == 1 then
+						L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+					elseif #L_162_arg0.CurrentOption == 0 then
+						L_163_.Selected.Text = "None"
+					else
+						L_163_.Selected.Text = "Various"
+					end
+				else
+					L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+				end;
+				L_163_.BackgroundTransparency = 1;
+				L_163_.UIStroke.Transparency = 1;
+				L_163_.Title.TextTransparency = 1;
+				L_163_.Size = UDim2.new(1, -10, 0, 45)
+				L_70_func()
+				L_9_:Create(L_163_, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+					BackgroundTransparency = 0
+				}):Play()
+				L_9_:Create(L_163_.UIStroke, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+					Transparency = 0
+				}):Play()
+				L_9_:Create(L_163_.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+					TextTransparency = 0
+				}):Play()
+				for L_164_forvar0, L_165_forvar1 in ipairs(L_163_.List:GetChildren()) do
+					if L_165_forvar1.ClassName == "Frame" and L_165_forvar1.Name ~= "Placeholder" then
+						L_165_forvar1:Destroy()
+					end
+				end;
+				L_163_.Toggle.Rotation = 180;
+				L_163_.Interact.MouseButton1Click:Connect(function()
+					L_9_:Create(L_163_.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {
+						Transparency = 1
+					}):Play()
+					wait(0.1)
+					L_9_:Create(L_163_.UIStroke, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {
+						Transparency = 0
+					}):Play()
+					if Debounce then
+						return
+					end;
+					if L_163_.List.Visible then
+						Debounce = true;
+						local L_166_ = L_9_:Create(L_163_, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
+							Size = UDim2.new(1, -10, 0, 45)
+						})
+						local L_167_ = pcall(function()
+							L_166_:Play()
+						end)
+						local L_168_ = false;
+						if L_167_ then
+							L_168_ = true
+						end;
+						spawn(function()
+							while L_168_ do
+								L_70_func()
+								wait()
+							end
+						end)
+						L_166_.Completed:Connect(function()
+							L_168_ = false
+						end)
+						for L_169_forvar0, L_170_forvar1 in ipairs(L_163_.List:GetChildren()) do
+							if L_170_forvar1.ClassName == "Frame" and L_170_forvar1.Name ~= "Placeholder" then
+								L_9_:Create(L_170_forvar1, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+									BackgroundTransparency = 1
+								}):Play()
+								L_9_:Create(L_170_forvar1.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+									Transparency = 1
+								}):Play()
+								L_9_:Create(L_170_forvar1.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+									TextTransparency = 1
+								}):Play()
+							end
+						end;
+						L_9_:Create(L_163_.List, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+							ScrollBarImageTransparency = 1
+						}):Play()
+						L_9_:Create(L_163_.Toggle, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+							Rotation = 180
+						}):Play()
+						wait(0.35)
+						L_163_.List.Visible = false;
+						Debounce = false
+					else
+						local L_171_ = L_9_:Create(L_163_, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
+							Size = UDim2.new(1, -10, 0, 180)
+						})
+						local L_172_ = pcall(function()
+							L_171_:Play()
+						end)
+						local L_173_ = false;
+						if L_172_ then
+							L_173_ = true
+						end;
+						spawn(function()
+							while L_173_ do
+								L_70_func()
+								wait()
+							end
+						end)
+						L_171_.Completed:Connect(function()
+							L_173_ = false
+						end)
+						L_163_.List.Visible = true;
+						L_9_:Create(L_163_.List, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+							ScrollBarImageTransparency = 0.7
+						}):Play()
+						L_9_:Create(L_163_.Toggle, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+							Rotation = 0
+						}):Play()
+						for L_174_forvar0, L_175_forvar1 in ipairs(L_163_.List:GetChildren()) do
+							if L_175_forvar1.ClassName == "Frame" and L_175_forvar1.Name ~= "Placeholder" then
+								L_9_:Create(L_175_forvar1, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+									BackgroundTransparency = 0
+								}):Play()
+								L_9_:Create(L_175_forvar1.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+									Transparency = 0
+								}):Play()
+								L_9_:Create(L_175_forvar1.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+									TextTransparency = 0
+								}):Play()
+							end
+						end
+					end
+				end)
+				for L_176_forvar0, L_177_forvar1 in ipairs(L_162_arg0.Options) do
+					local L_178_ = L_40_.Template.Dropdown.List.Template:Clone()
+					L_178_.Name = L_177_forvar1;
+					L_178_.Title.Text = L_177_forvar1;
+					L_178_.Parent = L_163_.List;
+					L_178_.Visible = true;
+					if L_162_arg0.CurrentOption == L_177_forvar1 then
+						L_178_.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+					end;
+					L_178_.MouseEnter:Connect(function()
+						L_9_:Create(L_178_, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+						}):Play()
+						L_9_:Create(L_178_, L_5_.Theme.Dark.TweenInfo, {
+							Size = UDim2.new(0.921, 0, 0, 38)
+						}):Play()
+					end)
+					L_178_.MouseLeave:Connect(function()
+						L_9_:Create(L_178_, L_5_.Theme.Dark.TweenInfo, {
+							BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+						}):Play()
+						L_9_:Create(L_178_, L_5_.Theme.Dark.TweenInfo, {
+							Size = UDim2.new(0.921, 0, 0, 38)
+						}):Play()
+					end)
+					L_178_.Interact.ZIndex = 50;
+					L_178_.Interact.MouseButton1Click:Connect(function()
+						if not L_162_arg0.MultipleOptions and table.find(L_162_arg0.CurrentOption, L_177_forvar1) then
+							return
+						end;
+						if table.find(L_162_arg0.CurrentOption, L_177_forvar1) then
+							table.remove(L_162_arg0.CurrentOption, table.find(L_162_arg0.CurrentOption, L_177_forvar1))
+							if L_162_arg0.MultipleOptions then
+								if #L_162_arg0.CurrentOption == 1 then
+									L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+								elseif #L_162_arg0.CurrentOption == 0 then
+									L_163_.Selected.Text = "None"
+								else
+									L_163_.Selected.Text = "Various"
+								end
+							else
+								L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+							end
+						else
+							if not L_162_arg0.MultipleOptions then
+								table.clear(L_162_arg0.CurrentOption)
+							end;
+							table.insert(L_162_arg0.CurrentOption, L_177_forvar1)
+							if L_162_arg0.MultipleOptions then
+								if #L_162_arg0.CurrentOption == 1 then
+									L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+								elseif #L_162_arg0.CurrentOption == 0 then
+									L_163_.Selected.Text = "None"
+								else
+									L_163_.Selected.Text = "Various"
+								end
+							else
+								L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+							end;
+							local L_181_ = L_178_.Size;
+							L_9_:Create(L_178_, L_5_.Theme.Dark.TweenInfo, {
+								Size = UDim2.new(0.875, 0, 0, 38)
+							}):Play()
+							L_9_:Create(L_178_, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+								BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+							}):Play()
+							Debounce = true;
+							wait(0.2)
+							L_9_:Create(L_178_, L_5_.Theme.Dark.TweenInfo, {
+								Size = L_181_
+							}):Play()
+						end;
+						local L_179_, L_180_ = pcall(function()
+							L_162_arg0.Callback(L_162_arg0.MultipleOptions == false and L_162_arg0.CurrentOption[1] or L_162_arg0.CurrentOption)
+						end)
+						for L_182_forvar0, L_183_forvar1 in ipairs(L_163_.List:GetChildren()) do
+							if L_183_forvar1.ClassName == "Frame" and L_183_forvar1.Name ~= "Placeholder" and not table.find(L_162_arg0.CurrentOption, L_183_forvar1.Name) then
+								L_9_:Create(L_183_forvar1, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+									BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+								}):Play()
+							end
+						end;
+						if not L_162_arg0.MultipleOptions then
+							wait(0.1)
+							local L_184_ = L_9_:Create(L_163_, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
+								Size = UDim2.new(1, -10, 0, 45)
+							})
+							local L_185_ = pcall(function()
+								L_184_:Play()
+							end)
+							local L_186_ = false;
+							if L_185_ then
+								L_186_ = true
+							end;
+							spawn(function()
+								while L_186_ do
+									L_70_func()
+									wait()
+								end
+							end)
+							L_184_.Completed:Connect(function()
+								L_186_ = false
+							end)
+							for L_187_forvar0, L_188_forvar1 in ipairs(L_163_.List:GetChildren()) do
+								if L_188_forvar1.ClassName == "Frame" and L_188_forvar1.Name ~= "Placeholder" then
+									L_9_:Create(L_188_forvar1, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+										BackgroundTransparency = 1
+									}):Play()
+									L_9_:Create(L_188_forvar1.UIStroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+										Transparency = 1
+									}):Play()
+									L_9_:Create(L_188_forvar1.Title, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+										TextTransparency = 1
+									}):Play()
+								end
+							end;
+							L_9_:Create(L_163_.List, TweenInfo.new(0.3, Enum.EasingStyle.Quint), {
+								ScrollBarImageTransparency = 1
+							}):Play()
+							L_9_:Create(L_163_.Toggle, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {
+								Rotation = 180
+							}):Play()
+							wait(0.35)
+							L_163_.List.Visible = false
+						end;
+						Debounce = false
+					end)
+				end;
+				for L_189_forvar0, L_190_forvar1 in ipairs(L_163_.List:GetChildren()) do
+					if L_190_forvar1.ClassName == "Frame" and L_190_forvar1.Name ~= "Placeholder" then
+						if not table.find(L_162_arg0.CurrentOption, L_190_forvar1.Name) then
+							L_190_forvar1.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+						else
+							L_190_forvar1.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+						end
+					end
+				end;
+				function L_162_arg0:Set(L_191_arg0)
+					L_162_arg0.CurrentOption = L_191_arg0;
+					if typeof(L_162_arg0.CurrentOption) == "string" then
+						L_162_arg0.CurrentOption = {
+							L_162_arg0.CurrentOption
+						}
+					end;
+					if not L_162_arg0.MultipleOptions then
+						L_162_arg0.CurrentOption = {
+							L_162_arg0.CurrentOption[1]
+						}
+					end;
+					if L_162_arg0.MultipleOptions then
+						if #L_162_arg0.CurrentOption == 1 then
+							L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+						elseif #L_162_arg0.CurrentOption == 0 then
+							L_163_.Selected.Text = "None"
+						else
+							L_163_.Selected.Text = "Various"
+						end
+					else
+						L_163_.Selected.Text = L_162_arg0.CurrentOption[1]
+					end;
+					local L_192_, L_193_ = pcall(function()
+						L_162_arg0.Callback(L_191_arg0)
+					end)
+					for L_194_forvar0, L_195_forvar1 in ipairs(L_163_.List:GetChildren()) do
+						if L_195_forvar1.ClassName == "Frame" and L_195_forvar1.Name ~= "Placeholder" then
+							if not table.find(L_162_arg0.CurrentOption, L_195_forvar1.Name) then
+								L_195_forvar1.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+							else
+								L_195_forvar1.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+							end
+						end
+					end
+				end;
+				return L_162_arg0
+			end;
+			function L_68_:CreateTextbox(L_196_arg0)
+				local L_197_ = L_40_.Template.Input:Clone()
+				L_197_.Name = L_196_arg0.Name;
+				L_197_.Title.Text = L_196_arg0.Name;
+				L_197_.Visible = true;
+				L_197_.Parent = L_69_;
+				L_70_func()
+				L_197_.InputFrame.InputBox.PlaceholderText = L_196_arg0.PlaceholderText;
+				L_197_.InputFrame.Size = UDim2.new(0, L_197_.InputFrame.InputBox.TextBounds.X + 24, 0, 30)
+				L_197_.InputFrame.InputBox.FocusLost:Connect(function()
+					local L_199_, L_200_ = pcall(function()
+						L_196_arg0.Callback(L_197_.InputFrame.InputBox.Text)
+					end)
+					if L_196_arg0.RemoveTextAfterFocusLost then
+						L_197_.InputFrame.InputBox.Text = ""
+					end;
+					L_197_.InputFrame.Size = UDim2.new(0, L_197_.InputFrame.InputBox.TextBounds.X + 24, 0, 30)
+				end)
+				L_197_.InputFrame.InputBox:GetPropertyChangedSignal("Text"):Connect(function()
+					L_9_:Create(L_197_.InputFrame, TweenInfo.new(0.55, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+						Size = UDim2.new(0, L_197_.InputFrame.InputBox.TextBounds.X + 24, 0, 30)
+					}):Play()
+				end)
+				local L_198_ = {}
+				function L_198_:Set(L_201_arg0)
+					L_197_.InputFrame.InputBox.Text = L_201_arg0
+				end;
+				return L_198_
+			end;
+			function L_68_:CreateParagraph(L_202_arg0)
+				local L_203_ = L_40_.Template.Paragraph:Clone()
+				L_203_.Name = L_202_arg0.Title;
+				L_203_.Title.Text = L_202_arg0.Title;
+				L_203_.Content.Text = L_202_arg0.Description;
+				L_203_.Visible = true;
+				L_203_.Parent = L_69_;
+				L_70_func()
+			end;
+			function L_68_:CreateLabel(L_204_arg0)
+				local L_205_ = L_40_.Template.Label:Clone()
+				L_205_.Name = L_204_arg0.Description;
+				L_205_.Title.Text = L_204_arg0.Description;
+				L_205_.Visible = true;
+				L_205_.Parent = L_69_;
+				L_70_func()
+			end;
+			function L_68_:CreateCard(L_206_arg0)
+				local L_207_ = L_40_.Template.Card:Clone()
+				L_207_.Name = L_206_arg0.Title;
+				L_207_.Title.Text = L_206_arg0.Title;
+				L_207_.Description.Text = L_206_arg0.Description;
+				L_207_.State.Text = L_206_arg0.SecondaryTitle or ""
+				L_207_.PreviewImage.Image = L_206_arg0.Image or "rbxassetid://14167800463"
+				L_207_.Parent = L_69_;
+				L_70_func()
+				L_207_.Button1.Visible = false;
+				L_207_.Button2.Visible = false;
+				if L_206_arg0.Buttons then
+					if L_206_arg0.Buttons.Button1 then
+						local L_208_ = L_207_.Button1;
+						L_208_.Visible = true;
+						L_208_.Name = L_206_arg0.Buttons.Button1.Name;
+						L_208_.Text = L_206_arg0.Buttons.Button1.Name;
+						L_208_.MouseButton1Click:Connect(function()
+							local L_209_, L_210_ = pcall(L_206_arg0.Buttons.Button1.Callback)
+						end)
+					end;
+					if L_206_arg0.Buttons.Button2 then
+						local L_211_ = L_207_.Button2;
+						L_211_.Visible = true;
+						L_211_.Name = L_206_arg0.Buttons.Button2.Name;
+						L_211_.Text = L_206_arg0.Buttons.Button2.Name;
+						L_211_.MouseButton1Click:Connect(function()
+							local L_212_, L_213_ = pcall(L_206_arg0.Buttons.Button2.Callback)
+						end)
+					end
+				end
+			end;
+			return L_68_
+		end;
+		return L_61_
+	end;
+	return L_41_
+end;
+return L_5_
