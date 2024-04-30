@@ -435,9 +435,9 @@ end
 local FC = {}
 function FC.ToggleFreecam(enabled)
 	if enabled == true then
-		StopFreecam()
-	else
 		StartFreecam()
+	else
+		StopFreecam()
 	end
 end
 return FC
