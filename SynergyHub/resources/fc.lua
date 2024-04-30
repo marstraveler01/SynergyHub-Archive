@@ -1,4 +1,3 @@
---!nonstrict
 ------------------------------------------------------------------------
 -- Freecam
 -- Cinematic free camera for spectating and video production.
@@ -19,8 +18,6 @@ local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
-local Settings = UserSettings()
-local GameSettings = Settings.GameSettings
 
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
@@ -36,13 +33,8 @@ Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
 	end
 end)
 
-local FFlagUserExitFreecamBreaksWithShiftlock = true
-local FFlagUserShowGuiHideToggles = false
-
-
 ------------------------------------------------------------------------
 
-local FREECAM_ENABLED_ATTRIBUTE_NAME = "FreecamEnabled"
 local TOGGLE_INPUT_PRIORITY = Enum.ContextActionPriority.Low.Value
 local INPUT_PRIORITY = Enum.ContextActionPriority.High.Value
 local FREECAM_MACRO_KB = {Enum.KeyCode.LeftShift, Enum.KeyCode.P}
@@ -173,9 +165,9 @@ local Input = {} do
 		navSpeed = clamp(navSpeed + dt*(keyboard.Up - keyboard.Down)*NAV_ADJ_SPEED, 0.01, 4)
 
 		local kGamepad = Vector3.new(
-			thumbstickCurve(gamepad.Thumbstick1.X),
+			thumbstickCurve(gamepad.Thumbstick1.x),
 			thumbstickCurve(gamepad.ButtonR2) - thumbstickCurve(gamepad.ButtonL2),
-			thumbstickCurve(-gamepad.Thumbstick1.Y)
+			thumbstickCurve(-gamepad.Thumbstick1.y)
 		)*NAV_GAMEPAD_SPEED
 
 		local kKeyboard = Vector3.new(
@@ -191,8 +183,8 @@ local Input = {} do
 
 	function Input.Pan(dt)
 		local kGamepad = Vector2.new(
-			thumbstickCurve(gamepad.Thumbstick2.Y),
-			thumbstickCurve(-gamepad.Thumbstick2.X)
+			thumbstickCurve(gamepad.Thumbstick2.y),
+			thumbstickCurve(-gamepad.Thumbstick2.x)
 		)*PAN_GAMEPAD_SPEED
 		local kMouse = mouse.Delta*PAN_MOUSE_SPEED
 		mouse.Delta = Vector2.new()
@@ -276,6 +268,36 @@ local Input = {} do
 	end
 end
 
+local function GetFocusDistance(cameraFrame)
+	local znear = 0.1
+	local viewport = Camera.ViewportSize
+	local projy = 2*tan(cameraFov/2)
+	local projx = viewport.x/viewport.y*projy
+	local fx = cameraFrame.rightVector
+	local fy = cameraFrame.upVector
+	local fz = cameraFrame.lookVector
+
+	local minVect = Vector3.new()
+	local minDist = 512
+
+	for x = 0, 1, 0.5 do
+		for y = 0, 1, 0.5 do
+			local cx = (x - 0.5)*projx
+			local cy = (y - 0.5)*projy
+			local offset = fx*cx - fy*cy + fz
+			local origin = cameraFrame.p + offset*znear
+			local _, hit = Workspace:FindPartOnRay(Ray.new(origin, offset.unit*minDist))
+			local dist = (hit - origin).magnitude
+			if minDist > dist then
+				minDist = dist
+				minVect = offset.unit
+			end
+		end
+	end
+
+	return fz:Dot(minVect)*minDist
+end
+
 ------------------------------------------------------------------------
 
 local function StepFreecam(dt)
@@ -293,18 +315,8 @@ local function StepFreecam(dt)
 	cameraPos = cameraCFrame.p
 
 	Camera.CFrame = cameraCFrame
-	Camera.Focus = cameraCFrame 
+	Camera.Focus = cameraCFrame*CFrame.new(0, 0, -GetFocusDistance(cameraCFrame))
 	Camera.FieldOfView = cameraFov
-end
-
-local function CheckMouseLockAvailability()
-	local devAllowsMouseLock = Players.LocalPlayer.DevEnableMouseLock
-	local devMovementModeIsScriptable = Players.LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.Scriptable
-	local userHasMouseLockModeEnabled = GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch
-	local userHasClickToMoveEnabled =  GameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove
-	local MouseLockAvailable = devAllowsMouseLock and userHasMouseLockModeEnabled and not userHasClickToMoveEnabled and not devMovementModeIsScriptable
-
-	return MouseLockAvailable
 end
 
 ------------------------------------------------------------------------
@@ -360,11 +372,7 @@ local PlayerState = {} do
 		mouseIconEnabled = UserInputService.MouseIconEnabled
 		UserInputService.MouseIconEnabled = false
 
-		if FFlagUserExitFreecamBreaksWithShiftlock and CheckMouseLockAvailability() then
-			mouseBehavior = Enum.MouseBehavior.Default
-		else
-			mouseBehavior = UserInputService.MouseBehavior
-		end
+		mouseBehavior = UserInputService.MouseBehavior
 		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
 	end
 
@@ -403,10 +411,6 @@ local PlayerState = {} do
 end
 
 local function StartFreecam()
-	if FFlagUserShowGuiHideToggles then
-		script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, true)
-	end
-
 	local cameraCFrame = Camera.CFrame
 	cameraRot = Vector2.new(cameraCFrame:toEulerAnglesYXZ())
 	cameraPos = cameraCFrame.p
@@ -422,26 +426,18 @@ local function StartFreecam()
 end
 
 local function StopFreecam()
-	if FFlagUserShowGuiHideToggles then
-		script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, false)
-	end
-
 	Input.StopCapture()
 	RunService:UnbindFromRenderStep("Freecam")
 	PlayerState.Pop()
 end
 
 ------------------------------------------------------------------------
-
 local FC = {}
-
-function FC:ToggleFreecam(enabled)
-    if enabled then
-        StopFreecam()
-    else
-        StartFreecam()
-    end
-    enabled = not enabled
+function FC.ToggleFreecam(enabled)
+	if enabled == truethen
+		StopFreecam()
+	else
+		StartFreecam()
+	end
 end
-
 return FC
