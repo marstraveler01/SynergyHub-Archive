@@ -435,8 +435,7 @@ end
 
 local FC = {}
 
-local enabled = false
-local function FC.ToggleFreecam()
+function FC:ToggleFreecam(enabled)
     if enabled then
         StopFreecam()
     else
