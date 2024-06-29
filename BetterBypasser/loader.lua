@@ -1,21 +1,15 @@
-local success, error = pcall(function()
-	local executorEnviroment = debug.getfenv()
-	local Services = setmetatable({}, {
-		__index = function(_, serviceName)
-			if debug.getfenv(2) ~= executorEnviroment then
-				return nil;
-			end
-			return cloneref(game[serviceName])
+local executorEnviroment = debug.getfenv()
+local Services = setmetatable({}, {
+	__index = function(_, serviceName)
+		if debug.getfenv(2) ~= executorEnviroment then
+			return nil;
 		end
-	})
-	
-	local player = Services.Players.LocalPlayer
-	repeat task.wait() until game:IsLoaded() and player.Character
-	
-	getgenv().options = ({...})[1]
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua",true))()
-end)
+		return cloneref(game[serviceName])
+	end
+})
 
-if not success and error then
-	print("A error occured while trying to launch the main script. Error: " .. error)
-end
+local player = Services.Players.LocalPlayer
+repeat task.wait() until game:IsLoaded() and player.Character
+
+getgenv().options = ({...})[1]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua",true))()
