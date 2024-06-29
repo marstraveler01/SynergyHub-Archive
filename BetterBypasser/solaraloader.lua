@@ -12,4 +12,4 @@ local player = Services.Players.LocalPlayer
 repeat task.wait() until game:IsLoaded() and player.Character
 
 getgenv().options = ({...})[1]
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/alphaproduct.lua",true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/solaraproduct.lua",true))()
