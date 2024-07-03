@@ -1,6 +1,14 @@
 local Services = setmetatable({}, {
 	__index = function(_, serviceName)
-		return cloneref(game:GetService([serviceName]))
+		local success, service = pcall(function()
+			return game:GetService(serviceName)
+		end)
+		if success then
+			return cloneref(service)
+		else
+			warn("Service not found: " .. serviceName)
+			return nil
+		end
 	end
 })
 
