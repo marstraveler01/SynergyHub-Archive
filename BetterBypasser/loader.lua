@@ -1,3 +1,7 @@
+if identifyexecutor() == "Solara" then
+	return error("Executor not supported.")
+end
+
 local Services = setmetatable({}, {
 	__index = function(_, serviceName)
 		local success, service = pcall(function()
