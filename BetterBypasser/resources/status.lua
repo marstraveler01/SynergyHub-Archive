@@ -1,6 +1,6 @@
 return {
     "Status" = "OK", 
     "Reasoning" = "", 
-    "Mode" = nil 
+    "Mode" = "" 
 }
  
