@@ -21,4 +21,4 @@ repeat task.wait() until game:IsLoaded() and player.Character
 
 getgenv().OptionsSettings = ({...})[1]
 --loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua",true))()
-player:Kick("BetterBypasser patched until further notice.")
+player:Kick("BetterBypasser patched until further notice. Join our Discord via vaultcord.win/synergy")
