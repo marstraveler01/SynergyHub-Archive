@@ -1,10 +1,7 @@
 local executorEnviroment = getfenv()
 local Services = setmetatable({}, {
 	__index = function(_, serviceName)
-		if getfenv(2) ~= executorEnviroment then
-			return nil;
-		end
-		return cloneref(game[serviceName])
+		return game:GetService(serviceName)
 	end
 })
 
