@@ -1,4 +1,3 @@
-local executorEnviroment = getfenv()
 local Services = setmetatable({}, {
 	__index = function(_, serviceName)
 		return game:GetService(serviceName)
