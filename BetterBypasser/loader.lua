@@ -1,4 +1,4 @@
-if identifyexecutor() == "Solara" then
+if table.find({"Solara", "AppleWare"}, identifyexecutor()) then
 	return error("Executor not supported.")
 end
 
