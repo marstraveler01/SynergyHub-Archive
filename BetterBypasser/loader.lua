@@ -1,7 +1,3 @@
-if table.find({"Solara", "AppleWare"}, identifyexecutor()) then
-	return error("Executor not supported.")
-end
-
 local Services = setmetatable({}, {
 	__index = function(_, serviceName)
 		return game:GetService(serviceName)
