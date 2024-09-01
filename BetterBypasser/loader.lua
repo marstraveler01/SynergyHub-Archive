@@ -7,4 +7,10 @@ local Services = setmetatable({}, {
 local player = Services.Players.LocalPlayer
 repeat task.wait() until game:IsLoaded() and player.Character
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua",true))()
+local executor = identifyexecutor()
+if executor == "Solara" or executor == "Delta" or executor == "Fluxus" then
+	error("Unsupported executor: " .. executor)
+	return 
+end
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
