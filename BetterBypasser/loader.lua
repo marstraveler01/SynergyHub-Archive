@@ -8,7 +8,7 @@ local player = Services.Players.LocalPlayer
 repeat task.wait() until game:IsLoaded() and player.Character
 
 local executor = identifyexecutor()
-if executor == "Solara" or executor == "Delta" or executor == "Fluxus" then
+if executor == "Solara" then
 	error("Unsupported executor: " .. executor)
 	return 
 end
