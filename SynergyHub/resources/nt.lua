@@ -407,7 +407,7 @@ function OrionLib:MakeNotification(NotificationConfig)
 			Position = UDim2.new(1, -55, 0, 0),
 			BackgroundColor = Color3.fromRGB(22, 22, 22),
 			BackgroundImage = "rbxassetid://16823146396",
-			BackgroundTransparency = 0.8999999761581421
+			BackgroundTransparency = 0.8999999761581421,
 			AutomaticSize = Enum.AutomaticSize.Y
 		}), {
 			MakeElement("Stroke", Color3.fromRGB(93, 93, 93), 1.2),
