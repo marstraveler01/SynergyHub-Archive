@@ -13,4 +13,6 @@ if executor == "Solara" then
 	return 
 end
 
+if getgenv().OptionsSettings ~= nil then player:Kick("This version is outdated. Join vaultcord.win/synergy, then to the scripts channel to get the script") end;
+
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
