@@ -7,12 +7,6 @@ local Services = setmetatable({}, {
 local player = Services.Players.LocalPlayer
 repeat task.wait() until game:IsLoaded() and player.Character
 
-local executor = identifyexecutor()
-if executor == "Solara" then
-	error("Unsupported executor: " .. executor)
-	return 
-end
-
 if getgenv().OptionsSettings ~= nil then player:Kick("This version is outdated. Join vaultcord.win/synergy, then to the scripts channel to get the script") end;
 player:Kick("This version is patched. Join vaultcord.win/synergy to get status updates.")
 
