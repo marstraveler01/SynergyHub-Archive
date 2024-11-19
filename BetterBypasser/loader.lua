@@ -7,8 +7,8 @@ local Services = setmetatable({}, {
 local Players = Services.Players
 local Player = Players.LocalPlayer
 
-if getgenv().OptionsSettings then 
+if getgenv().OptionsSettings ~= nil then 
     Player:Kick("This version is outdated. Join vaultcord.win/synergy, then to the scripts channel to get the script") 
 end
 
-loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
