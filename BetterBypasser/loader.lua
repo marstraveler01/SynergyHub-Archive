@@ -4,9 +4,17 @@ local Services = setmetatable({}, {
 	end
 })
 
-local player = Services.Players.LocalPlayer
-repeat task.wait() until game:IsLoaded() and player.Character
+local Players = Services.Players
+local Player = Players.LocalPlayer
 
-if getgenv().OptionsSettings ~= nil then player:Kick("This version is outdated. Join vaultcord.win/synergy, then to the scripts channel to get the script") end;
+if getgenv().OptionsSettings then 
+    Player:Kick("This version is outdated. Join vaultcord.win/synergy, then to the scripts channel to get the script") 
+end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
+local Success, Error = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
+end)
+
+if not Success and Error then
+    Player:Kick("Report this error to Synergy Networks. Error: " .. Error)
+end 
