@@ -12,7 +12,7 @@ if getgenv().OptionsSettings then
 end
 
 local Success, Error = pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
 end)
 
 if not Success and Error then
