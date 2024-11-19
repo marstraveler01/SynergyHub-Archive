@@ -11,10 +11,4 @@ if getgenv().OptionsSettings then
     Player:Kick("This version is outdated. Join vaultcord.win/synergy, then to the scripts channel to get the script") 
 end
 
-local Success, Error = pcall(function()
-    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
-end)
-
-if not Success and Error then
-    Player:Kick("Report this error to Synergy Networks. Error: " .. Error)
-end 
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
