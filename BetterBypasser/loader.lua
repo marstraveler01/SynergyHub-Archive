@@ -17,10 +17,10 @@ if IsUnder13 then
     return Player.Kick(Player, "You are using a account that is younger than 13. Please use a account that is older than 13 to continue.") 
 end
 
-local Success, Error = pcall(function()
+--local Success, Error = pcall(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/publicproduct.lua", true))()
-end)
+--end)
 
-if not Success and Error then
-	return Player.Kick(Player, "Report this error to vaultcord.win/synergy. Error: " .. Error) 
-end
+--if not Success and Error then
+	--return Player.Kick(Player, "Report this error to vaultcord.win/synergy. Error: " .. Error) 
+--end
